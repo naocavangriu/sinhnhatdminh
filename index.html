@@ -3,19 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Chúc mừng sinh nhật!</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { margin: 0; background: #e3f2fd; font-family: 'Quicksand', sans-serif; overflow: hidden; color: #0d47a1; cursor: pointer; }
-        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 20px; text-align: center; }
-        .cake { font-size: 70px; margin-bottom: 10px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        h1 { font-family: 'Pacifico', cursive; font-size: 28px; color: #1565c0; margin: 10px 0; }
-        .message-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; min-height: 120px; font-size: 17px; line-height: 1.6; z-index: 2; }
-        .balloon { position: absolute; bottom: -100px; width: 40px; height: 50px; border-radius: 50%; animation: fly 6s infinite ease-in; opacity: 0.6; }
-        @keyframes fly { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-120vh) rotate(20deg); } }
-        .note { margin-top: 20px; font-size: 12px; color: #546e7a; }
-    </style>
+    body { 
+    margin: 0; 
+    background: #e1f5fe; /* Màu xanh da trời nhạt cực kỳ mát mắt */
+    font-family: 'Quicksand', sans-serif; 
+    overflow: hidden; 
+    color: #01579b; /* Chữ màu xanh đậm cho dễ đọc */
+    cursor: pointer; 
+}
+
+h1 { 
+    font-family: 'Pacifico', cursive; 
+    font-size: 28px; 
+    color: #0288d1; /* Màu tiêu đề xanh dương đậm hơn */
+    margin: 10px 0; 
+}
+
+.message-box { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    width: 85%; 
+    min-height: 120px; 
+    font-size: 18px; 
+    line-height: 1.6; 
+    border: 3px dashed #81d4fa; /* Viền nét đứt màu xanh da trời */
+}
+
+.hint { 
+    margin-top: 25px; 
+    font-size: 14px; 
+    color: #0288d1; 
+    font-weight: bold; 
+    animation: pulse 1.5s infinite; 
+}
 </head>
 <body>
     <audio id="birthday-audio" loop preload="auto">
@@ -23,18 +47,18 @@
     </audio>
 
     <div class="container">
-        <div class="cake">🎮</div>
+        <div class="icon">🎮</div>
         <h1 id="name-display">Happy Birthday!</h1>
         <div class="message-box" id="typewriter"></div>
-        <p class="note">(Chạm vào màn hình để nghe nhạc nhé Măng ✨)</p>
+        <p class="hint">CHẠM VÀO MÀN HÌNH ĐỂ NGHE NHẠC ✨</p>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get('name') || "ông tướng";
-        document.getElementById('name-display').innerText = "Happy Birthday, " + name + "!";
+        const name = urlParams.get('name') || "bạn hiền";
+        document.getElementById('name-display').innerText = "Chúc mừng sinh nhật, " + name + "!";
 
-        const text = "Chúc mừng sinh nhật cái thằng 13 tuổi mà tâm hồn vẫn 3 tuổi! Tuổi mới bớt báo anh em, ăn nhiều cho lớn nhanh nhé. Nhớ chăm ngoan học giỏi, nghe lời bố mẹ nha Măng. ";
+        const text = "húc mừng sinh nhật cái thằng 13 tuổi mà tâm hồn vẫn 3 tuổi! Tuổi mới bớt báo anh em, ăn nhiều cho lớn nhanh nhé. Nhớ chăm ngoan học giỏi, nghe lời bố mẹ nha Măng.";
         
         let i = 0;
         function type() {
@@ -44,21 +68,14 @@
             }
         }
         
-        function createBalloon() {
-            const b = document.createElement('div');
-            b.className = 'balloon';
-            b.style.left = Math.random() * 100 + 'vw';
-            b.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 75%)`;
-            b.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(b);
-            setTimeout(() => b.remove(), 6000);
-        }
-
+        // Nhạc CHẮC CHẮN sẽ phát khi chạm vào màn hình
         document.body.addEventListener('click', function() {
-            document.getElementById('birthday-audio').play();
+            const audio = document.getElementById('birthday-audio');
+            audio.play().then(() => {
+                console.log("Nhạc đang phát!");
+            }).catch(e => console.log("Lỗi nhạc: ", e));
         }, { once: true });
 
-        setInterval(createBalloon, 600);
         window.onload = type;
     </script>
 </body>
