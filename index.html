@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Chúc mừng sinh nhật!</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #e3f2fd; font-family: 'Quicksand', sans-serif; overflow: hidden; color: #0d47a1; cursor: pointer; }
+        body { margin: 0; background: #e1f5fe; font-family: 'Quicksand', sans-serif; overflow: hidden; color: #01579b; cursor: pointer; }
         .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; padding: 20px; text-align: center; }
-        .cake { font-size: 70px; margin-bottom: 10px; animation: bounce 2s infinite; }
+        .icon { font-size: 80px; margin-bottom: 10px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        h1 { font-family: 'Pacifico', cursive; font-size: 28px; color: #1565c0; margin: 10px 0; }
-        .message-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; min-height: 120px; font-size: 17px; line-height: 1.6; z-index: 2; }
+        h1 { font-family: 'Pacifico', cursive; font-size: 30px; color: #0288d1; margin: 10px 0; }
+        .message-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; min-height: 120px; font-size: 18px; line-height: 1.6; z-index: 2; }
         .balloon { position: absolute; bottom: -100px; width: 40px; height: 50px; border-radius: 50%; animation: fly 6s infinite ease-in; opacity: 0.6; }
         @keyframes fly { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-120vh) rotate(20deg); } }
-        .note { margin-top: 20px; font-size: 12px; color: #546e7a; }
+        .hint { margin-top: 25px; font-size: 13px; color: #546e7a; font-weight: bold; }
     </style>
 </head>
 <body>
-   <audio id="birthday-audio" loop>
-    <source src="uia.mp3" type="audio/mpeg">
-</audio>
+    <audio id="birthday-audio" loop>
+        <source src="uia.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
-        <div class="cake">🎮</div>
+        <div class="icon">🎮</div>
         <h1 id="name-display">Happy Birthday!</h1>
         <div class="message-box" id="typewriter"></div>
-        <p class="note">(Chạm vào màn hình để nghe nhạc nhé Măng ✨)</p>
+        <p class="hint">Chạm vào màn hình để nghe nhạc nhé Măng ✨</p>
     </div>
 
     <script>
@@ -33,7 +34,7 @@
         const name = urlParams.get('name') || "ông tướng";
         document.getElementById('name-display').innerText = "Happy Birthday, " + name + "!";
 
-        const text = "Chúc mừng sinh nhật cái thằng 13 tuổi mà tâm hồn vẫn 3 tuổi! Tuổi mới bớt báo anh em, ăn nhiều cho lớn nhanh nhé. Nhớ chăm ngoan học giỏi, nghe lời bố mẹ nha Măng. ";
+        const text = "Chúc mừng sinh nhật cái thằng 13 tuổi mà tâm hồn vẫn 3 tuổi! Tuổi mới bớt báo anh em, ăn nhiều cho lớn nhanh nhé. Nhớ chăm ngoan học giỏi, nghe lời bố mẹ nha Măng.";
         
         let i = 0;
         function type() {
@@ -43,6 +44,11 @@
             }
         }
         
+        // Nhạc sẽ phát ngay khi chạm vào bất kỳ đâu trên màn hình
+        document.body.addEventListener('click', function() {
+            document.getElementById('birthday-audio').play();
+        }, { once: true });
+
         function createBalloon() {
             const b = document.createElement('div');
             b.className = 'balloon';
@@ -52,11 +58,6 @@
             document.body.appendChild(b);
             setTimeout(() => b.remove(), 6000);
         }
-
-        document.body.addEventListener('click', function() {
-            document.getElementById('birthday-audio').play();
-        }, { once: true });
-
         setInterval(createBalloon, 600);
         window.onload = type;
     </script>
